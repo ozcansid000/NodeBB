@@ -22,7 +22,6 @@ async function getUserHomeRoute(uid) {
 }
 
 async function rewrite(req, res, next) {
-	console.log('Sidney Ozcan');
 	if (req.path !== '/' && req.path !== '/api/' && req.path !== '/api') {
 		return next();
 	}

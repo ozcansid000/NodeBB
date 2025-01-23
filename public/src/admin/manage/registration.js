@@ -8,7 +8,22 @@ define('admin/manage/registration', ['bootbox', 'alerts'], function (bootbox, al
 		$('.invites-list').on('click', '[data-action]', handleInvitationAction);
 	};
 
-	
+	// Handle user registration actions
+	function handleUserAction() {
+		const parent = $(this).parents('[data-username]');
+		const action = $(this).attr('data-action');
+		const username = parent.attr('data-username');
+		const method = action === 'accept' ? 'user.acceptRegistration' : 'user.rejectRegistration';
+
+		socket.emit(method, { username: username }, function (err) {
+			if (err) {
+				return alerts.error(err);
+			}
+			parent.remove();
+		});
+
+		return false;
+	}
 
 	// Handle invitation actions
 	function handleInvitationAction() {
